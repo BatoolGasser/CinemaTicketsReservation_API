@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from tickets import views
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
 router.register('guests', views.viewsets_guest)
@@ -26,6 +27,10 @@ router.register('reservation', views.viewsets_reservation)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+
+    # 0 rest auth url: gives u an option to make logout as admin
+    # path('api-auth/', include('rest_framework.urls')),
+
     # 1
     path('django/jsonresponsenomodel/', views.no_rest_no_model),
 
@@ -63,5 +68,8 @@ urlpatterns = [
     path('fbv/findmovies/', views.find_movie),
 
     # 9 new reservation
-    path('fbv/newreservation', views.new_reservation)
+    path('fbv/newreservation', views.new_reservation),
+
+    # 10 Token authentication
+    path('api-token-auth', obtain_auth_token)
 ]
